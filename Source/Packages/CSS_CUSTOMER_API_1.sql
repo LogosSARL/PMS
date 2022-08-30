@@ -127,7 +127,7 @@ is
 
       INSERT INTO css_api_logs (c1)
       VALUES ('err ' || err_code||'-'|| err_msg);
-      raise_application_error(-20001,'An error was encountered - '||SQLCODE||' -ERROR- '||SQLERRM);
+    --  raise_application_error(-20001,'An error was encountered - '||SQLCODE||' -ERROR- '||SQLERRM);
     end insert_row;
 
     procedure update_row  (
