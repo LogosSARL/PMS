@@ -1,0 +1,124 @@
+--------------------------------------------------------
+--  DDL for Package Body FLOW_PLSQL_RUNNER_PKG
+--------------------------------------------------------
+
+  CREATE OR REPLACE EDITIONABLE PACKAGE BODY "PRJ"."FLOW_PLSQL_RUNNER_PKG" 
+as
+  g_current_prcs_id flow_processes.prcs_id%type;
+  g_current_sbfl_id flow_subflows.sbfl_id%type;
+  procedure init_globals
+  (
+    pi_prcs_id in flow_processes.prcs_id%type
+  , pi_sbfl_id in flow_subflows.sbfl_id%type
+  )
+  as
+  begin
+    g_current_prcs_id := pi_prcs_id;
+    g_current_sbfl_id := pi_sbfl_id;
+  end init_globals;
+  function get_current_prcs_id
+    return flow_processes.prcs_id%type
+  as
+  begin
+    return flow_globals.process_id;
+  end get_current_prcs_id;
+  function get_current_sbfl_id
+    return flow_subflows.sbfl_id%type
+  as
+  begin
+    return flow_globals.subflow_id;
+  end get_current_sbfl_id;
+  procedure execute_plsql
+  (
+    p_plsql_code in clob
+  )
+  as
+  begin
+    apex_debug.enter 
+    ('execute_plsql'
+    , 'p_plsql_code', dbms_lob.substr(p_plsql_code, 2000, 1)
+    );
+    -- Always wrap code into begin..end
+    -- Developers are allowed to omit those if no declaration section needed
+    execute immediate
+      'begin' || apex_application.lf ||
+      p_plsql_code || apex_application.lf ||
+      'end;'
+    ;
+  end execute_plsql;
+  procedure run_task_script
+  (
+    pi_prcs_id  in flow_processes.prcs_id%type
+  , pi_sbfl_id  in flow_subflows.sbfl_id%type
+  , pi_objt_id  in flow_objects.objt_id%type
+  , pi_step_key in flow_subflows.sbfl_step_key%type default null
+  )
+  as
+    l_use_apex_exec boolean := false;
+    l_plsql_code    flow_object_attributes.obat_clob_value%type;
+    l_do_autobind   boolean := false;
+    l_sql_parameters apex_exec.t_parameters;
+  begin
+    apex_debug.enter 
+    ( 'run_task_script'
+    , 'pi_objt_id', pi_objt_id
+    );
+    flow_globals.set_context 
+    ( pi_prcs_id  => pi_prcs_id
+    , pi_sbfl_id  => pi_sbfl_id 
+    , pi_step_key => pi_step_key
+    );
+    for rec in ( select obat.obat_key
+                      , obat.obat_vc_value
+                      , obat.obat_clob_value
+                   from flow_object_attributes obat
+                  where obat.obat_objt_id = pi_objt_id
+                    and obat.obat_key in ( flow_constants_pkg.gc_apex_task_plsql_engine
+                                         , flow_constants_pkg.gc_apex_task_plsql_code
+                                         , flow_constants_pkg.gc_apex_task_plsql_auto_binds
+                                         )
+               )
+    loop
+      case rec.obat_key
+        when flow_constants_pkg.gc_apex_task_plsql_engine then
+          l_use_apex_exec := ( rec.obat_vc_value = flow_constants_pkg.gc_vcbool_true );
+        when flow_constants_pkg.gc_apex_task_plsql_code then
+          l_plsql_code := rec.obat_clob_value;
+        when flow_constants_pkg.gc_apex_task_plsql_auto_binds then
+          l_do_autobind := ( rec.obat_vc_value = flow_constants_pkg.gc_vcbool_true );
+        else
+          null;
+      end case;
+    end loop;
+    if l_use_apex_exec then
+      apex_exec.execute_plsql
+      (
+        p_plsql_code      => l_plsql_code
+      , p_auto_bind_items => l_do_autobind
+      , p_sql_parameters  => l_sql_parameters
+      );
+    else
+      execute_plsql
+      (
+        p_plsql_code => l_plsql_code
+      );
+    end if;
+  exception
+    when e_plsql_script_requested_stop then 
+      apex_debug.error
+      (
+        p_message => 'User script run by flow_plsql_runner_pkg.run_task_script requested stop.'
+      , p0        => sqlerrm
+      );
+      raise e_plsql_script_requested_stop;     
+    when others then
+      apex_debug.error
+      (
+        p_message => 'Error during flow_plsql_runner_pkg.run_task_script. SQLERRM: %s'
+      , p0        => sqlerrm
+      );
+      raise e_plsql_script_failed;
+  end run_task_script;
+end flow_plsql_runner_pkg;
+
+/
