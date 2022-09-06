@@ -1,0 +1,21 @@
+--------------------------------------------------------
+--  File created - Tuesday-September-06-2022   
+--------------------------------------------------------
+DROP PACKAGE "PRJ"."CO_SM_BASE64_PCK";
+--------------------------------------------------------
+--  DDL for Package CO_SM_BASE64_PCK
+--------------------------------------------------------
+
+  CREATE OR REPLACE EDITIONABLE PACKAGE "PRJ"."CO_SM_BASE64_PCK" IS
+
+   -- Base64-encode a piece of binary data.
+   --
+   -- Note that this encode function does not split the encoded text into
+   -- multiple lines with no more than 76 bytes each as required by
+   -- the MIME standard.
+   --
+   FUNCTION encode(r IN RAW) RETURN VARCHAR2;
+
+END Co_SM_Base64_Pck;
+
+/

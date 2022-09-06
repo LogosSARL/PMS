@@ -1,56 +1,60 @@
+prompt --application/set_environment
 set define off verify off feedback off
 whenever sqlerror exit sql.sqlcode rollback
 --------------------------------------------------------------------------------
 --
--- ORACLE Application Express (APEX) export file
+-- Oracle APEX export file
 --
 -- You should run the script connected to SQL*Plus as the Oracle user
--- APEX_050100 or as the owner (parsing schema) of the application.
+-- APEX_220100 or as the owner (parsing schema) of the application.
 --
 -- NOTE: Calls to apex_application_install override the defaults below.
 --
 --------------------------------------------------------------------------------
 begin
-wwv_flow_api.import_begin (
- p_version_yyyy_mm_dd=>'2016.08.24'
-,p_release=>'5.1.1.00.08'
+wwv_flow_imp.import_begin (
+ p_version_yyyy_mm_dd=>'2022.04.12'
+,p_release=>'22.1.0'
 ,p_default_workspace_id=>1680420756714069
 ,p_default_application_id=>101
+,p_default_id_offset=>0
 ,p_default_owner=>'PRJ'
 );
 end;
 /
-prompt --application/set_environment
  
 prompt APPLICATION 101 - Projects
 --
 -- Application Export:
 --   Application:     101
 --   Name:            Projects
---   Date and Time:   09:35 Thursday August 18, 2022
+--   Date and Time:   10:34 Tuesday September 6, 2022
 --   Exported By:     PRJ
 --   Flashback:       0
 --   Export Type:     Page Export
---   Version:         5.1.1.00.08
---   Instance ID:     108805670837021
+--   Manifest
+--     PAGE: 140
+--   Manifest End
+--   Version:         22.1.0
+--   Instance ID:     713479013073404
 --
 
+begin
+null;
+end;
+/
 prompt --application/pages/delete_00140
 begin
-wwv_flow_api.remove_page (p_flow_id=>wwv_flow.g_flow_id, p_page_id=>140);
+wwv_flow_imp_page.remove_page (p_flow_id=>wwv_flow.g_flow_id, p_page_id=>140);
 end;
 /
 prompt --application/pages/page_00140
 begin
-wwv_flow_api.create_page(
+wwv_flow_imp_page.create_page(
  p_id=>140
-,p_user_interface_id=>wwv_flow_api.id(64113831873839)
+,p_user_interface_id=>wwv_flow_imp.id(64113831873839)
 ,p_name=>'Process History'
-,p_page_mode=>'NORMAL'
 ,p_step_title=>'Process History'
-,p_step_sub_title=>'Process History'
-,p_step_sub_title_type=>'TEXT_WITH_SUBSTITUTIONS'
-,p_first_item=>'NO_FIRST_ITEM'
 ,p_autocomplete_on_off=>'OFF'
 ,p_javascript_code=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'var FormArray = [];',
@@ -103,20 +107,17 @@ wwv_flow_api.create_page(
 'width:250%',
 '}'))
 ,p_page_template_options=>'#DEFAULT#'
-,p_overwrite_navigation_list=>'N'
-,p_page_is_public_y_n=>'N'
-,p_cache_mode=>'NOCACHE'
+,p_page_component_map=>'10'
 ,p_last_updated_by=>'JAWAD'
 ,p_last_upd_yyyymmddhh24miss=>'20181227164025'
 );
-wwv_flow_api.create_page_plug(
- p_id=>wwv_flow_api.id(286093119769795710)
+wwv_flow_imp_page.create_page_plug(
+ p_id=>wwv_flow_imp.id(286093119769795710)
 ,p_plug_name=>'New'
 ,p_region_template_options=>'#DEFAULT#'
-,p_plug_template=>wwv_flow_api.id(20903049949019134)
+,p_plug_template=>wwv_flow_imp.id(20903049949019134)
 ,p_plug_display_sequence=>10
 ,p_include_in_reg_disp_sel_yn=>'Y'
-,p_plug_display_point=>'BODY'
 ,p_plug_source=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'declare ',
 '',
@@ -158,15 +159,14 @@ wwv_flow_api.create_page_plug(
 ,p_plug_source_type=>'NATIVE_PLSQL'
 ,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
 );
-wwv_flow_api.create_page_plug(
- p_id=>wwv_flow_api.id(286093876869795717)
+wwv_flow_imp_page.create_page_plug(
+ p_id=>wwv_flow_imp.id(286093876869795717)
 ,p_plug_name=>'New'
 ,p_region_template_options=>'#DEFAULT#'
 ,p_component_template_options=>'#DEFAULT#'
-,p_plug_template=>wwv_flow_api.id(20903049949019134)
+,p_plug_template=>wwv_flow_imp.id(20903049949019134)
 ,p_plug_display_sequence=>20
 ,p_include_in_reg_disp_sel_yn=>'Y'
-,p_plug_display_point=>'BODY'
 ,p_plug_source=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'declare ',
 '',
@@ -202,32 +202,35 @@ wwv_flow_api.create_page_plug(
 ,p_plug_display_condition_type=>'ITEM_IS_NOT_NULL'
 ,p_plug_display_when_condition=>'P140_PROCESS_INSTANCE_ID'
 );
-wwv_flow_api.create_page_item(
- p_id=>wwv_flow_api.id(286093220798795711)
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(286093220798795711)
 ,p_name=>'P140_HISTORY'
 ,p_item_sequence=>10
-,p_item_plug_id=>wwv_flow_api.id(286093119769795710)
+,p_item_plug_id=>wwv_flow_imp.id(286093119769795710)
 ,p_display_as=>'NATIVE_HIDDEN'
+,p_encrypt_session_state_yn=>'N'
 ,p_attribute_01=>'N'
 );
-wwv_flow_api.create_page_item(
- p_id=>wwv_flow_api.id(286093396041795712)
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(286093396041795712)
 ,p_name=>'P140_PROCESS_INSTANCE_ID'
 ,p_item_sequence=>20
-,p_item_plug_id=>wwv_flow_api.id(286093119769795710)
+,p_item_plug_id=>wwv_flow_imp.id(286093119769795710)
 ,p_display_as=>'NATIVE_HIDDEN'
+,p_encrypt_session_state_yn=>'N'
 ,p_attribute_01=>'N'
 );
-wwv_flow_api.create_page_item(
- p_id=>wwv_flow_api.id(286093733954795716)
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(286093733954795716)
 ,p_name=>'P140_PROCESS'
 ,p_item_sequence=>30
-,p_item_plug_id=>wwv_flow_api.id(286093119769795710)
+,p_item_plug_id=>wwv_flow_imp.id(286093119769795710)
 ,p_display_as=>'NATIVE_HIDDEN'
+,p_encrypt_session_state_yn=>'N'
 ,p_attribute_01=>'N'
 );
-wwv_flow_api.create_page_process(
- p_id=>wwv_flow_api.id(290387389067914957)
+wwv_flow_imp_page.create_page_process(
+ p_id=>wwv_flow_imp.id(290387389067914957)
 ,p_process_sequence=>10
 ,p_process_point=>'AFTER_FOOTER'
 ,p_process_type=>'NATIVE_PLSQL'
@@ -235,10 +238,11 @@ wwv_flow_api.create_page_process(
 ,p_process_sql_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
 ':P140_FILE := '''';',
 ':P140_FILE_NAME := '''';'))
+,p_process_clob_language=>'PLSQL'
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
 );
-wwv_flow_api.create_page_process(
- p_id=>wwv_flow_api.id(290389373201914958)
+wwv_flow_imp_page.create_page_process(
+ p_id=>wwv_flow_imp.id(290389373201914958)
 ,p_process_sequence=>10
 ,p_process_point=>'BEFORE_HEADER'
 ,p_process_type=>'NATIVE_PLSQL'
@@ -253,10 +257,11 @@ wwv_flow_api.create_page_process(
 '                                    ',
 'IF NOT APEX_COLLECTION.COLLECTION_EXISTS (p_collection_name => ''HISTORY_COLLECTION'') then  APEX_COLLECTION.CREATE_COLLECTION(p_collection_name => ''HISTORY_COLLECTION''); end if;  ',
 'IF NOT APEX_COLLECTION.COLLECTION_EXISTS (p_collection_name => ''PROCESS_HISTORY'') then  APEX_COLLECTION.CREATE_COLLECTION(p_collection_name => ''PROCESS_HISTORY''); end if;                                 '))
+,p_process_clob_language=>'PLSQL'
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
 );
-wwv_flow_api.create_page_process(
- p_id=>wwv_flow_api.id(286093082930795709)
+wwv_flow_imp_page.create_page_process(
+ p_id=>wwv_flow_imp.id(286093082930795709)
 ,p_process_sequence=>20
 ,p_process_point=>'BEFORE_HEADER'
 ,p_process_type=>'NATIVE_PLSQL'
@@ -286,10 +291,11 @@ wwv_flow_api.create_page_process(
 'FROM APEX_collections',
 'WHERE collection_name = ''HISTORY_COLLECTION'';',
 '  end;'))
+,p_process_clob_language=>'PLSQL'
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
 );
-wwv_flow_api.create_page_process(
- p_id=>wwv_flow_api.id(286093678736795715)
+wwv_flow_imp_page.create_page_process(
+ p_id=>wwv_flow_imp.id(286093678736795715)
 ,p_process_sequence=>30
 ,p_process_point=>'BEFORE_HEADER'
 ,p_process_type=>'NATIVE_PLSQL'
@@ -319,23 +325,26 @@ wwv_flow_api.create_page_process(
 'FROM APEX_collections',
 'WHERE collection_name = ''PROCESS_HISTORY'';',
 '  end;'))
+,p_process_clob_language=>'PLSQL'
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
 ,p_process_when=>'P140_PROCESS_INSTANCE_ID'
 ,p_process_when_type=>'ITEM_IS_NOT_NULL'
 );
-wwv_flow_api.create_page_process(
- p_id=>wwv_flow_api.id(290389763921914958)
+wwv_flow_imp_page.create_page_process(
+ p_id=>wwv_flow_imp.id(290389763921914958)
 ,p_process_sequence=>10
 ,p_process_point=>'ON_SUBMIT_BEFORE_COMPUTATION'
 ,p_process_type=>'NATIVE_PLSQL'
 ,p_process_name=>'New'
 ,p_process_sql_clob=>':P140_FILE_NAME := :P140_FILE;'
+,p_process_clob_language=>'PLSQL'
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
 );
 end;
 /
+prompt --application/end_environment
 begin
-wwv_flow_api.import_end(p_auto_install_sup_obj => nvl(wwv_flow_application_install.get_auto_install_sup_obj, false));
+wwv_flow_imp.import_end(p_auto_install_sup_obj => nvl(wwv_flow_application_install.get_auto_install_sup_obj, false));
 commit;
 end;
 /

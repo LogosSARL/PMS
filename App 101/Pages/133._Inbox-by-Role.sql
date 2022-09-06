@@ -1,56 +1,60 @@
+prompt --application/set_environment
 set define off verify off feedback off
 whenever sqlerror exit sql.sqlcode rollback
 --------------------------------------------------------------------------------
 --
--- ORACLE Application Express (APEX) export file
+-- Oracle APEX export file
 --
 -- You should run the script connected to SQL*Plus as the Oracle user
--- APEX_050100 or as the owner (parsing schema) of the application.
+-- APEX_220100 or as the owner (parsing schema) of the application.
 --
 -- NOTE: Calls to apex_application_install override the defaults below.
 --
 --------------------------------------------------------------------------------
 begin
-wwv_flow_api.import_begin (
- p_version_yyyy_mm_dd=>'2016.08.24'
-,p_release=>'5.1.1.00.08'
+wwv_flow_imp.import_begin (
+ p_version_yyyy_mm_dd=>'2022.04.12'
+,p_release=>'22.1.0'
 ,p_default_workspace_id=>1680420756714069
 ,p_default_application_id=>101
+,p_default_id_offset=>0
 ,p_default_owner=>'PRJ'
 );
 end;
 /
-prompt --application/set_environment
  
 prompt APPLICATION 101 - Projects
 --
 -- Application Export:
 --   Application:     101
 --   Name:            Projects
---   Date and Time:   09:35 Thursday August 18, 2022
+--   Date and Time:   10:34 Tuesday September 6, 2022
 --   Exported By:     PRJ
 --   Flashback:       0
 --   Export Type:     Page Export
---   Version:         5.1.1.00.08
---   Instance ID:     108805670837021
+--   Manifest
+--     PAGE: 133
+--   Manifest End
+--   Version:         22.1.0
+--   Instance ID:     713479013073404
 --
 
+begin
+null;
+end;
+/
 prompt --application/pages/delete_00133
 begin
-wwv_flow_api.remove_page (p_flow_id=>wwv_flow.g_flow_id, p_page_id=>133);
+wwv_flow_imp_page.remove_page (p_flow_id=>wwv_flow.g_flow_id, p_page_id=>133);
 end;
 /
 prompt --application/pages/page_00133
 begin
-wwv_flow_api.create_page(
+wwv_flow_imp_page.create_page(
  p_id=>133
-,p_user_interface_id=>wwv_flow_api.id(64113831873839)
+,p_user_interface_id=>wwv_flow_imp.id(64113831873839)
 ,p_name=>'Inbox-by-Role'
-,p_page_mode=>'NORMAL'
 ,p_step_title=>'Inbox-by-Role'
-,p_step_sub_title=>'Inbox-by-Role'
-,p_step_sub_title_type=>'TEXT_WITH_SUBSTITUTIONS'
-,p_first_item=>'NO_FIRST_ITEM'
 ,p_autocomplete_on_off=>'OFF'
 ,p_javascript_code=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'var FormArray = [];',
@@ -81,20 +85,17 @@ wwv_flow_api.create_page(
 'width:250%',
 '}'))
 ,p_page_template_options=>'#DEFAULT#'
-,p_overwrite_navigation_list=>'N'
-,p_page_is_public_y_n=>'N'
-,p_cache_mode=>'NOCACHE'
+,p_page_component_map=>'10'
 ,p_last_updated_by=>'JAWAD'
 ,p_last_upd_yyyymmddhh24miss=>'20181221105147'
 );
-wwv_flow_api.create_page_plug(
- p_id=>wwv_flow_api.id(552740453247403627)
+wwv_flow_imp_page.create_page_plug(
+ p_id=>wwv_flow_imp.id(552740453247403627)
 ,p_plug_name=>'All Tasks'
 ,p_region_template_options=>'#DEFAULT#'
-,p_plug_template=>wwv_flow_api.id(20903049949019134)
+,p_plug_template=>wwv_flow_imp.id(20903049949019134)
 ,p_plug_display_sequence=>10
 ,p_include_in_reg_disp_sel_yn=>'Y'
-,p_plug_display_point=>'BODY'
 ,p_plug_source=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'declare ',
 '',
@@ -149,17 +150,16 @@ wwv_flow_api.create_page_plug(
 ,p_plug_source_type=>'NATIVE_PLSQL'
 ,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
 );
-wwv_flow_api.create_page_plug(
- p_id=>wwv_flow_api.id(552178565620300324)
+wwv_flow_imp_page.create_page_plug(
+ p_id=>wwv_flow_imp.id(552178565620300324)
 ,p_plug_name=>'Attached Files'
-,p_parent_plug_id=>wwv_flow_api.id(552740453247403627)
+,p_parent_plug_id=>wwv_flow_imp.id(552740453247403627)
 ,p_region_template_options=>'#DEFAULT#'
 ,p_component_template_options=>'#DEFAULT#'
-,p_plug_template=>wwv_flow_api.id(20903049949019134)
+,p_plug_template=>wwv_flow_imp.id(20903049949019134)
 ,p_plug_display_sequence=>20
-,p_include_in_reg_disp_sel_yn=>'N'
 ,p_plug_new_grid_row=>false
-,p_plug_display_point=>'BODY'
+,p_plug_display_point=>'SUB_REGIONS'
 ,p_plug_source=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'declare ',
 '',
@@ -198,21 +198,19 @@ wwv_flow_api.create_page_plug(
 'htp.p(''</table> </div>'');',
 '  end;'))
 ,p_plug_source_type=>'NATIVE_PLSQL'
-,p_plug_query_row_template=>1
 ,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
 ,p_plug_display_condition_type=>'ITEM_IS_NOT_NULL'
 ,p_plug_display_when_condition=>'P133_TASK_ID'
 );
-wwv_flow_api.create_page_plug(
- p_id=>wwv_flow_api.id(552178955622300328)
+wwv_flow_imp_page.create_page_plug(
+ p_id=>wwv_flow_imp.id(552178955622300328)
 ,p_plug_name=>'Diagram'
-,p_parent_plug_id=>wwv_flow_api.id(552740453247403627)
+,p_parent_plug_id=>wwv_flow_imp.id(552740453247403627)
 ,p_region_template_options=>'#DEFAULT#'
-,p_plug_template=>wwv_flow_api.id(20903049949019134)
+,p_plug_template=>wwv_flow_imp.id(20903049949019134)
 ,p_plug_display_sequence=>40
-,p_include_in_reg_disp_sel_yn=>'N'
 ,p_plug_new_grid_row=>false
-,p_plug_display_point=>'BODY'
+,p_plug_display_point=>'SUB_REGIONS'
 ,p_plug_source=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'declare',
 'l_url            varchar2(100) := ''128.128.5.166:8080/activiti-rest/service/runtime/process-instances/''||:P133_EXECUTION_ID||''/diagram'';',
@@ -244,19 +242,17 @@ wwv_flow_api.create_page_plug(
 '',
 '  end;'))
 ,p_plug_source_type=>'NATIVE_PLSQL'
-,p_plug_query_row_template=>1
 ,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
 ,p_plug_display_condition_type=>'NEVER'
 );
-wwv_flow_api.create_page_plug(
- p_id=>wwv_flow_api.id(564176689766174815)
+wwv_flow_imp_page.create_page_plug(
+ p_id=>wwv_flow_imp.id(564176689766174815)
 ,p_plug_name=>'Task Info'
-,p_parent_plug_id=>wwv_flow_api.id(552740453247403627)
+,p_parent_plug_id=>wwv_flow_imp.id(552740453247403627)
 ,p_region_template_options=>'#DEFAULT#'
-,p_plug_template=>wwv_flow_api.id(20903049949019134)
+,p_plug_template=>wwv_flow_imp.id(20903049949019134)
 ,p_plug_display_sequence=>10
-,p_include_in_reg_disp_sel_yn=>'N'
-,p_plug_display_point=>'BODY'
+,p_plug_display_point=>'SUB_REGIONS'
 ,p_plug_source=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'declare ',
 '',
@@ -295,116 +291,123 @@ wwv_flow_api.create_page_plug(
 'htp.p(''</table></div>'');',
 '  end;'))
 ,p_plug_source_type=>'NATIVE_PLSQL'
-,p_plug_query_row_template=>1
 ,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
 ,p_plug_display_condition_type=>'ITEM_IS_NOT_NULL'
 ,p_plug_display_when_condition=>'P133_TASK_ID'
 );
-wwv_flow_api.create_page_plug(
- p_id=>wwv_flow_api.id(564360573281550535)
+wwv_flow_imp_page.create_page_plug(
+ p_id=>wwv_flow_imp.id(564360573281550535)
 ,p_plug_name=>'Add Files'
-,p_parent_plug_id=>wwv_flow_api.id(552740453247403627)
+,p_parent_plug_id=>wwv_flow_imp.id(552740453247403627)
 ,p_region_template_options=>'#DEFAULT#'
 ,p_component_template_options=>'#DEFAULT#'
-,p_plug_template=>wwv_flow_api.id(20903049949019134)
+,p_plug_template=>wwv_flow_imp.id(20903049949019134)
 ,p_plug_display_sequence=>30
-,p_include_in_reg_disp_sel_yn=>'N'
 ,p_plug_new_grid_row=>false
-,p_plug_display_point=>'BODY'
+,p_plug_display_point=>'SUB_REGIONS'
 ,p_plug_source=>'htp.p(''<button onclick="apex.submit()">Attach Files</button>'');'
 ,p_plug_source_type=>'NATIVE_PLSQL'
-,p_plug_query_row_template=>1
 ,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
 ,p_plug_display_condition_type=>'ITEM_IS_NOT_NULL'
 ,p_plug_display_when_condition=>'P133_TASK_ID'
 );
-wwv_flow_api.create_page_item(
- p_id=>wwv_flow_api.id(285126858514462394)
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(285126858514462394)
 ,p_name=>'P133_ALL_TASKS_JSON'
 ,p_item_sequence=>10
-,p_item_plug_id=>wwv_flow_api.id(552740453247403627)
+,p_item_plug_id=>wwv_flow_imp.id(552740453247403627)
 ,p_display_as=>'NATIVE_HIDDEN'
+,p_encrypt_session_state_yn=>'N'
 ,p_attribute_01=>'Y'
 );
-wwv_flow_api.create_page_item(
- p_id=>wwv_flow_api.id(285127265160462394)
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(285127265160462394)
 ,p_name=>'P133_TASK_ID'
 ,p_item_sequence=>20
-,p_item_plug_id=>wwv_flow_api.id(552740453247403627)
+,p_item_plug_id=>wwv_flow_imp.id(552740453247403627)
 ,p_display_as=>'NATIVE_HIDDEN'
+,p_encrypt_session_state_yn=>'N'
 ,p_attribute_01=>'N'
 );
-wwv_flow_api.create_page_item(
- p_id=>wwv_flow_api.id(285127648195462394)
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(285127648195462394)
 ,p_name=>'P133_TASK_INFO'
 ,p_item_sequence=>30
-,p_item_plug_id=>wwv_flow_api.id(552740453247403627)
+,p_item_plug_id=>wwv_flow_imp.id(552740453247403627)
 ,p_display_as=>'NATIVE_HIDDEN'
+,p_encrypt_session_state_yn=>'N'
 ,p_attribute_01=>'Y'
 );
-wwv_flow_api.create_page_item(
- p_id=>wwv_flow_api.id(285128012596462395)
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(285128012596462395)
 ,p_name=>'P133_FORM_COUNT'
 ,p_item_sequence=>40
-,p_item_plug_id=>wwv_flow_api.id(552740453247403627)
+,p_item_plug_id=>wwv_flow_imp.id(552740453247403627)
 ,p_display_as=>'NATIVE_HIDDEN'
+,p_encrypt_session_state_yn=>'N'
 ,p_attribute_01=>'N'
 );
-wwv_flow_api.create_page_item(
- p_id=>wwv_flow_api.id(285128411272462395)
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(285128411272462395)
 ,p_name=>'P133_FILE_NAME'
 ,p_item_sequence=>50
-,p_item_plug_id=>wwv_flow_api.id(552740453247403627)
+,p_item_plug_id=>wwv_flow_imp.id(552740453247403627)
 ,p_display_as=>'NATIVE_HIDDEN'
+,p_encrypt_session_state_yn=>'N'
 ,p_attribute_01=>'N'
 );
-wwv_flow_api.create_page_item(
- p_id=>wwv_flow_api.id(285128842630462395)
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(285128842630462395)
 ,p_name=>'P133_ALL_ATTACHED_FILES'
 ,p_item_sequence=>60
-,p_item_plug_id=>wwv_flow_api.id(552740453247403627)
+,p_item_plug_id=>wwv_flow_imp.id(552740453247403627)
 ,p_display_as=>'NATIVE_HIDDEN'
+,p_encrypt_session_state_yn=>'N'
 ,p_attribute_01=>'N'
 );
-wwv_flow_api.create_page_item(
- p_id=>wwv_flow_api.id(285129232134462395)
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(285129232134462395)
 ,p_name=>'P133_EXECUTION_ID'
 ,p_item_sequence=>70
-,p_item_plug_id=>wwv_flow_api.id(552740453247403627)
+,p_item_plug_id=>wwv_flow_imp.id(552740453247403627)
 ,p_display_as=>'NATIVE_HIDDEN'
+,p_encrypt_session_state_yn=>'N'
 ,p_attribute_01=>'N'
 );
-wwv_flow_api.create_page_item(
- p_id=>wwv_flow_api.id(285130292373462396)
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(285130292373462396)
 ,p_name=>'P133_FILE'
 ,p_item_sequence=>10
-,p_item_plug_id=>wwv_flow_api.id(564360573281550535)
+,p_item_plug_id=>wwv_flow_imp.id(564360573281550535)
 ,p_prompt=>'Attach File To Task'
 ,p_display_as=>'NATIVE_FILE'
 ,p_cSize=>30
 ,p_label_alignment=>'RIGHT-CENTER'
 ,p_field_alignment=>'LEFT-CENTER'
-,p_field_template=>wwv_flow_api.id(20906254571019158)
+,p_field_template=>wwv_flow_imp.id(20906254571019158)
 ,p_item_template_options=>'#DEFAULT#'
+,p_encrypt_session_state_yn=>'N'
 ,p_attribute_01=>'APEX_APPLICATION_TEMP_FILES'
 ,p_attribute_09=>'SESSION'
 ,p_attribute_10=>'N'
+,p_attribute_12=>'NATIVE'
 );
-wwv_flow_api.create_page_item(
- p_id=>wwv_flow_api.id(285130942573462396)
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(285130942573462396)
 ,p_name=>'P133_DIAGRAM'
 ,p_item_sequence=>10
-,p_item_plug_id=>wwv_flow_api.id(552178955622300328)
+,p_item_plug_id=>wwv_flow_imp.id(552178955622300328)
 ,p_prompt=>'New'
 ,p_display_as=>'NATIVE_DISPLAY_IMAGE'
 ,p_label_alignment=>'RIGHT-CENTER'
 ,p_field_alignment=>'LEFT-CENTER'
-,p_field_template=>wwv_flow_api.id(20906254571019158)
+,p_field_template=>wwv_flow_imp.id(20906254571019158)
 ,p_item_template_options=>'#DEFAULT#'
+,p_encrypt_session_state_yn=>'N'
 ,p_attribute_01=>'URL'
 );
-wwv_flow_api.create_page_da_event(
- p_id=>wwv_flow_api.id(285135530597462400)
+wwv_flow_imp_page.create_page_da_event(
+ p_id=>wwv_flow_imp.id(285135530597462400)
 ,p_name=>'New'
 ,p_event_sequence=>10
 ,p_bind_type=>'bind'
@@ -412,9 +415,9 @@ wwv_flow_api.create_page_da_event(
 ,p_display_when_type=>'ITEM_IS_NOT_NULL'
 ,p_display_when_cond=>'P133_FILE'
 );
-wwv_flow_api.create_page_da_action(
- p_id=>wwv_flow_api.id(285136045889462400)
-,p_event_id=>wwv_flow_api.id(285135530597462400)
+wwv_flow_imp_page.create_page_da_action(
+ p_id=>wwv_flow_imp.id(285136045889462400)
+,p_event_id=>wwv_flow_imp.id(285135530597462400)
 ,p_event_result=>'TRUE'
 ,p_action_sequence=>10
 ,p_execute_on_page_init=>'N'
@@ -438,10 +441,9 @@ wwv_flow_api.create_page_da_action(
 '    $s("P133_FILE",'''');',
 '$s("P133_FILE_NAME",'''');',
 ''))
-,p_stop_execution_on_error=>'Y'
 );
-wwv_flow_api.create_page_process(
- p_id=>wwv_flow_api.id(285131691234462398)
+wwv_flow_imp_page.create_page_process(
+ p_id=>wwv_flow_imp.id(285131691234462398)
 ,p_process_sequence=>10
 ,p_process_point=>'AFTER_FOOTER'
 ,p_process_type=>'NATIVE_PLSQL'
@@ -449,10 +451,11 @@ wwv_flow_api.create_page_process(
 ,p_process_sql_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
 ':P133_FILE := '''';',
 ':P133_FILE_NAME := '''';'))
+,p_process_clob_language=>'PLSQL'
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
 );
-wwv_flow_api.create_page_process(
- p_id=>wwv_flow_api.id(285134704424462399)
+wwv_flow_imp_page.create_page_process(
+ p_id=>wwv_flow_imp.id(285134704424462399)
 ,p_process_sequence=>10
 ,p_process_point=>'BEFORE_HEADER'
 ,p_process_type=>'NATIVE_PLSQL'
@@ -472,10 +475,11 @@ wwv_flow_api.create_page_process(
 'IF NOT APEX_COLLECTION.COLLECTION_EXISTS (p_collection_name => ''INBOX_COLLECTION'') then  APEX_COLLECTION.CREATE_COLLECTION(p_collection_name => ''INBOX_COLLECTION''); end if;',
 'IF NOT APEX_COLLECTION.COLLECTION_EXISTS (p_collection_name => ''TASK_INFO_COLLECTION'') then  APEX_COLLECTION.CREATE_COLLECTION(p_collection_name => ''TASK_INFO_COLLECTION''); end if;',
 'IF NOT APEX_COLLECTION.COLLECTION_EXISTS (p_collection_name => ''ATTACHED_FILES_COLLECTION'') then APEX_COLLECTION.CREATE_COLLECTION(p_collection_name => ''ATTACHED_FILES_COLLECTION''); end if;'))
+,p_process_clob_language=>'PLSQL'
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
 );
-wwv_flow_api.create_page_process(
- p_id=>wwv_flow_api.id(279752719153526506)
+wwv_flow_imp_page.create_page_process(
+ p_id=>wwv_flow_imp.id(279752719153526506)
 ,p_process_sequence=>20
 ,p_process_point=>'BEFORE_HEADER'
 ,p_process_type=>'NATIVE_PLSQL'
@@ -504,10 +508,11 @@ wwv_flow_api.create_page_process(
 '    end;',
 '    ',
 '  end;'))
+,p_process_clob_language=>'PLSQL'
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
 );
-wwv_flow_api.create_page_process(
- p_id=>wwv_flow_api.id(285134346121462399)
+wwv_flow_imp_page.create_page_process(
+ p_id=>wwv_flow_imp.id(285134346121462399)
 ,p_process_sequence=>40
 ,p_process_point=>'BEFORE_HEADER'
 ,p_process_type=>'NATIVE_PLSQL'
@@ -537,12 +542,13 @@ wwv_flow_api.create_page_process(
 'FROM APEX_collections',
 'WHERE collection_name = ''TASK_INFO_COLLECTION'';',
 '  end;'))
+,p_process_clob_language=>'PLSQL'
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
 ,p_process_when=>'P133_TASK_ID'
 ,p_process_when_type=>'ITEM_IS_NOT_NULL'
 );
-wwv_flow_api.create_page_process(
- p_id=>wwv_flow_api.id(285131948299462398)
+wwv_flow_imp_page.create_page_process(
+ p_id=>wwv_flow_imp.id(285131948299462398)
 ,p_process_sequence=>60
 ,p_process_point=>'BEFORE_HEADER'
 ,p_process_type=>'NATIVE_PLSQL'
@@ -574,12 +580,13 @@ wwv_flow_api.create_page_process(
 '',
 ':P133_ALL_ATTACHED_FILES := ''{ "attachedFiles" :''||:P133_ALL_ATTACHED_FILES||''}'';',
 '  end;'))
+,p_process_clob_language=>'PLSQL'
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
 ,p_process_when=>'P133_TASK_ID'
 ,p_process_when_type=>'ITEM_IS_NOT_NULL'
 );
-wwv_flow_api.create_page_process(
- p_id=>wwv_flow_api.id(285132391361462398)
+wwv_flow_imp_page.create_page_process(
+ p_id=>wwv_flow_imp.id(285132391361462398)
 ,p_process_sequence=>70
 ,p_process_point=>'BEFORE_HEADER'
 ,p_process_type=>'NATIVE_PLSQL'
@@ -606,22 +613,25 @@ wwv_flow_api.create_page_process(
 '         utl_http.end_response(l_resp);',
 '    end;',
 '  end;'))
+,p_process_clob_language=>'PLSQL'
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
 ,p_process_when_type=>'NEVER'
 );
-wwv_flow_api.create_page_process(
- p_id=>wwv_flow_api.id(285135188505462399)
+wwv_flow_imp_page.create_page_process(
+ p_id=>wwv_flow_imp.id(285135188505462399)
 ,p_process_sequence=>10
 ,p_process_point=>'ON_SUBMIT_BEFORE_COMPUTATION'
 ,p_process_type=>'NATIVE_PLSQL'
 ,p_process_name=>'New'
 ,p_process_sql_clob=>':P133_FILE_NAME := :P133_FILE;'
+,p_process_clob_language=>'PLSQL'
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
 );
 end;
 /
+prompt --application/end_environment
 begin
-wwv_flow_api.import_end(p_auto_install_sup_obj => nvl(wwv_flow_application_install.get_auto_install_sup_obj, false));
+wwv_flow_imp.import_end(p_auto_install_sup_obj => nvl(wwv_flow_application_install.get_auto_install_sup_obj, false));
 commit;
 end;
 /

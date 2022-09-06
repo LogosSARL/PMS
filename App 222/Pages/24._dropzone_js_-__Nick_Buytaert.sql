@@ -1,55 +1,60 @@
+prompt --application/set_environment
 set define off verify off feedback off
 whenever sqlerror exit sql.sqlcode rollback
 --------------------------------------------------------------------------------
 --
--- ORACLE Application Express (APEX) export file
+-- Oracle APEX export file
 --
 -- You should run the script connected to SQL*Plus as the Oracle user
--- APEX_050100 or as the owner (parsing schema) of the application.
+-- APEX_220100 or as the owner (parsing schema) of the application.
 --
 -- NOTE: Calls to apex_application_install override the defaults below.
 --
 --------------------------------------------------------------------------------
 begin
-wwv_flow_api.import_begin (
- p_version_yyyy_mm_dd=>'2016.08.24'
-,p_release=>'5.1.1.00.08'
+wwv_flow_imp.import_begin (
+ p_version_yyyy_mm_dd=>'2022.04.12'
+,p_release=>'22.1.0'
 ,p_default_workspace_id=>1680420756714069
 ,p_default_application_id=>222
+,p_default_id_offset=>0
 ,p_default_owner=>'PRJ'
 );
 end;
 /
-prompt --application/set_environment
  
 prompt APPLICATION 222 - PMS
 --
 -- Application Export:
 --   Application:     222
 --   Name:            PMS
---   Date and Time:   10:54 Thursday August 18, 2022
+--   Date and Time:   10:35 Tuesday September 6, 2022
 --   Exported By:     PRJ
 --   Flashback:       0
 --   Export Type:     Page Export
---   Version:         5.1.1.00.08
---   Instance ID:     108805670837021
+--   Manifest
+--     PAGE: 24
+--   Manifest End
+--   Version:         22.1.0
+--   Instance ID:     713479013073404
 --
 
+begin
+null;
+end;
+/
 prompt --application/pages/delete_00024
 begin
-wwv_flow_api.remove_page (p_flow_id=>wwv_flow.g_flow_id, p_page_id=>24);
+wwv_flow_imp_page.remove_page (p_flow_id=>wwv_flow.g_flow_id, p_page_id=>24);
 end;
 /
 prompt --application/pages/page_00024
 begin
-wwv_flow_api.create_page(
+wwv_flow_imp_page.create_page(
  p_id=>24
-,p_user_interface_id=>wwv_flow_api.id(148753632100243889)
+,p_user_interface_id=>wwv_flow_imp.id(148753632100243889)
 ,p_name=>'dropzone js -  Nick Buytaert'
-,p_page_mode=>'NORMAL'
 ,p_step_title=>'dropzone js -  Nick Buytaert'
-,p_step_sub_title_type=>'TEXT_WITH_SUBSTITUTIONS'
-,p_first_item=>'NO_FIRST_ITEM'
 ,p_autocomplete_on_off=>'OFF'
 ,p_javascript_code=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'var fileInputElem = document.getElementById(''P24_FILE'');',
@@ -120,25 +125,22 @@ wwv_flow_api.create_page(
 '  reader.readAsArrayBuffer(file);',
 '}'))
 ,p_page_template_options=>'#DEFAULT#'
-,p_overwrite_navigation_list=>'N'
-,p_page_is_public_y_n=>'N'
-,p_cache_mode=>'NOCACHE'
+,p_page_component_map=>'18'
 ,p_last_updated_by=>'JAWAD'
 ,p_last_upd_yyyymmddhh24miss=>'20191009120848'
 );
-wwv_flow_api.create_page_plug(
- p_id=>wwv_flow_api.id(482054331993110246)
+wwv_flow_imp_page.create_page_plug(
+ p_id=>wwv_flow_imp.id(482054331993110246)
 ,p_plug_name=>'Files'
 ,p_region_template_options=>'#DEFAULT#'
-,p_plug_template=>wwv_flow_api.id(148719512587243497)
+,p_plug_template=>wwv_flow_imp.id(148719512587243497)
 ,p_plug_display_sequence=>10
 ,p_include_in_reg_disp_sel_yn=>'Y'
-,p_plug_display_point=>'BODY'
+,p_query_type=>'SQL'
 ,p_plug_source=>'select * from client_image_desktop'
 ,p_plug_source_type=>'NATIVE_IR'
 ,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
 ,p_prn_content_disposition=>'ATTACHMENT'
-,p_prn_document_header=>'APEX'
 ,p_prn_units=>'INCHES'
 ,p_prn_paper_size=>'LETTER'
 ,p_prn_width=>8.5
@@ -166,55 +168,61 @@ wwv_flow_api.create_page_plug(
 ,p_prn_page_header_alignment=>'CENTER'
 ,p_prn_page_footer_alignment=>'CENTER'
 );
-wwv_flow_api.create_worksheet(
- p_id=>wwv_flow_api.id(566857451958083604)
+wwv_flow_imp_page.create_worksheet(
+ p_id=>wwv_flow_imp.id(566857451958083604)
 ,p_max_row_count=>'1000000'
 ,p_show_nulls_as=>'-'
 ,p_pagination_type=>'ROWS_X_TO_Y'
 ,p_pagination_display_pos=>'BOTTOM_RIGHT'
 ,p_report_list_mode=>'TABS'
+,p_lazy_loading=>false
 ,p_show_detail_link=>'N'
 ,p_show_notify=>'Y'
-,p_download_formats=>'CSV:HTML:EMAIL:XLS:PDF:RTF'
+,p_download_formats=>'CSV:HTML:XLSX:PDF'
+,p_enable_mail_download=>'Y'
 ,p_owner=>'JAWAD'
 ,p_internal_uid=>566857451958083604
 );
-wwv_flow_api.create_worksheet_column(
- p_id=>wwv_flow_api.id(566857566159083605)
+wwv_flow_imp_page.create_worksheet_column(
+ p_id=>wwv_flow_imp.id(566857566159083605)
 ,p_db_column_name=>'SEQ_ID'
 ,p_display_order=>10
 ,p_column_identifier=>'A'
 ,p_column_label=>'File #'
 ,p_column_type=>'NUMBER'
 ,p_column_alignment=>'RIGHT'
+,p_use_as_row_header=>'N'
 );
-wwv_flow_api.create_worksheet_column(
- p_id=>wwv_flow_api.id(566859224525083622)
+wwv_flow_imp_page.create_worksheet_column(
+ p_id=>wwv_flow_imp.id(566859224525083622)
 ,p_db_column_name=>'FILENAME'
 ,p_display_order=>20
 ,p_column_identifier=>'H'
 ,p_column_label=>'Filename'
 ,p_column_type=>'STRING'
+,p_use_as_row_header=>'N'
 );
-wwv_flow_api.create_worksheet_column(
- p_id=>wwv_flow_api.id(566859321310083623)
+wwv_flow_imp_page.create_worksheet_column(
+ p_id=>wwv_flow_imp.id(566859321310083623)
 ,p_db_column_name=>'MIMETYPE'
 ,p_display_order=>30
 ,p_column_identifier=>'I'
 ,p_column_label=>'Mimetype'
 ,p_column_type=>'STRING'
+,p_use_as_row_header=>'N'
 );
-wwv_flow_api.create_worksheet_column(
- p_id=>wwv_flow_api.id(566859457861083624)
+wwv_flow_imp_page.create_worksheet_column(
+ p_id=>wwv_flow_imp.id(566859457861083624)
 ,p_db_column_name=>'BYTES'
 ,p_display_order=>40
 ,p_column_identifier=>'J'
 ,p_column_label=>'Bytes'
 ,p_column_type=>'NUMBER'
 ,p_column_alignment=>'RIGHT'
+,p_use_as_row_header=>'N'
 );
-wwv_flow_api.create_worksheet_column(
- p_id=>wwv_flow_api.id(566859569010083625)
+wwv_flow_imp_page.create_worksheet_column(
+ p_id=>wwv_flow_imp.id(566859569010083625)
 ,p_db_column_name=>'IMAGE'
 ,p_display_order=>50
 ,p_column_identifier=>'K'
@@ -230,72 +238,73 @@ wwv_flow_api.create_worksheet_column(
 ,p_allow_pivot=>'N'
 ,p_column_type=>'OTHER'
 ,p_rpt_show_filter_lov=>'N'
+,p_use_as_row_header=>'N'
 );
-wwv_flow_api.create_worksheet_rpt(
- p_id=>wwv_flow_api.id(570396754490028888)
+wwv_flow_imp_page.create_worksheet_rpt(
+ p_id=>wwv_flow_imp.id(570396754490028888)
 ,p_application_user=>'APXWS_DEFAULT'
 ,p_report_seq=>10
 ,p_report_alias=>'5703968'
 ,p_status=>'PUBLIC'
 ,p_is_default=>'Y'
-,p_display_rows=>50
 ,p_report_columns=>'SEQ_ID:FILENAME:MIMETYPE:BYTES:IMAGE'
-,p_flashback_enabled=>'N'
 );
-wwv_flow_api.create_page_button(
- p_id=>wwv_flow_api.id(482054543801110248)
+wwv_flow_imp_page.create_page_button(
+ p_id=>wwv_flow_imp.id(482054543801110248)
 ,p_button_sequence=>10
-,p_button_plug_id=>wwv_flow_api.id(482054331993110246)
+,p_button_plug_id=>wwv_flow_imp.id(482054331993110246)
 ,p_button_name=>'upload'
 ,p_button_action=>'DEFINED_BY_DA'
 ,p_button_template_options=>'#DEFAULT#'
-,p_button_template_id=>wwv_flow_api.id(148742800503243679)
+,p_button_template_id=>wwv_flow_imp.id(148742800503243679)
 ,p_button_image_alt=>'Upload'
 ,p_button_position=>'BELOW_BOX'
 ,p_warn_on_unsaved_changes=>null
 );
-wwv_flow_api.create_page_item(
- p_id=>wwv_flow_api.id(482054466655110247)
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(482054466655110247)
 ,p_name=>'P24_FILE'
 ,p_item_sequence=>10
-,p_item_plug_id=>wwv_flow_api.id(482054331993110246)
+,p_item_plug_id=>wwv_flow_imp.id(482054331993110246)
 ,p_prompt=>'Files Browser'
 ,p_display_as=>'NATIVE_FILE'
 ,p_cSize=>30
 ,p_tag_attributes=>'multiple'
-,p_field_template=>wwv_flow_api.id(148742305227243640)
+,p_field_template=>wwv_flow_imp.id(148742305227243640)
 ,p_item_template_options=>'#DEFAULT#'
+,p_encrypt_session_state_yn=>'N'
 ,p_attribute_01=>'APEX_APPLICATION_TEMP_FILES'
 ,p_attribute_09=>'SESSION'
 ,p_attribute_10=>'N'
+,p_attribute_12=>'NATIVE'
 );
-wwv_flow_api.create_page_da_event(
- p_id=>wwv_flow_api.id(482054752619110250)
+wwv_flow_imp_page.create_page_da_event(
+ p_id=>wwv_flow_imp.id(482054752619110250)
 ,p_name=>'New'
 ,p_event_sequence=>10
 ,p_triggering_element_type=>'BUTTON'
-,p_triggering_button_id=>wwv_flow_api.id(482054543801110248)
+,p_triggering_button_id=>wwv_flow_imp.id(482054543801110248)
 ,p_triggering_condition_type=>'JAVASCRIPT_EXPRESSION'
 ,p_triggering_expression=>'fileInputElem.files.length != 0'
 ,p_bind_type=>'bind'
 ,p_bind_event_type=>'click'
 );
-wwv_flow_api.create_page_da_action(
- p_id=>wwv_flow_api.id(566857163354083601)
-,p_event_id=>wwv_flow_api.id(482054752619110250)
+wwv_flow_imp_page.create_page_da_action(
+ p_id=>wwv_flow_imp.id(566857163354083601)
+,p_event_id=>wwv_flow_imp.id(482054752619110250)
 ,p_event_result=>'TRUE'
 ,p_action_sequence=>10
 ,p_execute_on_page_init=>'N'
 ,p_action=>'NATIVE_JAVASCRIPT_CODE'
 ,p_affected_elements_type=>'REGION'
-,p_affected_region_id=>wwv_flow_api.id(482054331993110246)
+,p_affected_region_id=>wwv_flow_imp.id(482054331993110246)
 ,p_attribute_01=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'fileIndex = 0;',
 'uploadFile(fileIndex);'))
 );
-wwv_flow_api.create_page_da_action(
- p_id=>wwv_flow_api.id(566858481542083614)
-,p_event_id=>wwv_flow_api.id(482054752619110250)
+wwv_flow_imp_page.create_page_da_action(
+ p_id=>wwv_flow_imp.id(566858481542083614)
+,p_event_id=>wwv_flow_imp.id(482054752619110250)
 ,p_event_result=>'TRUE'
 ,p_action_sequence=>20
 ,p_execute_on_page_init=>'N'
@@ -321,11 +330,11 @@ wwv_flow_api.create_page_da_action(
 '',
 '      ',
 '    end;'))
-,p_stop_execution_on_error=>'Y'
+,p_attribute_05=>'PLSQL'
 ,p_wait_for_result=>'Y'
 );
-wwv_flow_api.create_page_process(
- p_id=>wwv_flow_api.id(482054247872110245)
+wwv_flow_imp_page.create_page_process(
+ p_id=>wwv_flow_imp.id(482054247872110245)
 ,p_process_sequence=>10
 ,p_process_point=>'AFTER_HEADER'
 ,p_process_type=>'NATIVE_PLSQL'
@@ -347,10 +356,11 @@ wwv_flow_api.create_page_process(
 '    );',
 '  end if;',
 'end;'))
+,p_process_clob_language=>'PLSQL'
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
 );
-wwv_flow_api.create_page_process(
- p_id=>wwv_flow_api.id(482054663604110249)
+wwv_flow_imp_page.create_page_process(
+ p_id=>wwv_flow_imp.id(482054663604110249)
 ,p_process_sequence=>10
 ,p_process_point=>'ON_DEMAND'
 ,p_process_type=>'NATIVE_PLSQL'
@@ -403,12 +413,14 @@ wwv_flow_api.create_page_process(
 '    );',
 '    apex_json.close_object;',
 'end;'))
+,p_process_clob_language=>'PLSQL'
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
 );
 end;
 /
+prompt --application/end_environment
 begin
-wwv_flow_api.import_end(p_auto_install_sup_obj => nvl(wwv_flow_application_install.get_auto_install_sup_obj, false));
+wwv_flow_imp.import_end(p_auto_install_sup_obj => nvl(wwv_flow_application_install.get_auto_install_sup_obj, false));
 commit;
 end;
 /

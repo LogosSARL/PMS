@@ -1,55 +1,60 @@
+prompt --application/set_environment
 set define off verify off feedback off
 whenever sqlerror exit sql.sqlcode rollback
 --------------------------------------------------------------------------------
 --
--- ORACLE Application Express (APEX) export file
+-- Oracle APEX export file
 --
 -- You should run the script connected to SQL*Plus as the Oracle user
--- APEX_050100 or as the owner (parsing schema) of the application.
+-- APEX_220100 or as the owner (parsing schema) of the application.
 --
 -- NOTE: Calls to apex_application_install override the defaults below.
 --
 --------------------------------------------------------------------------------
 begin
-wwv_flow_api.import_begin (
- p_version_yyyy_mm_dd=>'2016.08.24'
-,p_release=>'5.1.1.00.08'
+wwv_flow_imp.import_begin (
+ p_version_yyyy_mm_dd=>'2022.04.12'
+,p_release=>'22.1.0'
 ,p_default_workspace_id=>1680420756714069
 ,p_default_application_id=>222
+,p_default_id_offset=>0
 ,p_default_owner=>'PRJ'
 );
 end;
 /
-prompt --application/set_environment
  
 prompt APPLICATION 222 - PMS
 --
 -- Application Export:
 --   Application:     222
 --   Name:            PMS
---   Date and Time:   10:54 Thursday August 18, 2022
+--   Date and Time:   10:35 Tuesday September 6, 2022
 --   Exported By:     PRJ
 --   Flashback:       0
 --   Export Type:     Page Export
---   Version:         5.1.1.00.08
---   Instance ID:     108805670837021
+--   Manifest
+--     PAGE: 15
+--   Manifest End
+--   Version:         22.1.0
+--   Instance ID:     713479013073404
 --
 
+begin
+null;
+end;
+/
 prompt --application/pages/delete_00015
 begin
-wwv_flow_api.remove_page (p_flow_id=>wwv_flow.g_flow_id, p_page_id=>15);
+wwv_flow_imp_page.remove_page (p_flow_id=>wwv_flow.g_flow_id, p_page_id=>15);
 end;
 /
 prompt --application/pages/page_00015
 begin
-wwv_flow_api.create_page(
+wwv_flow_imp_page.create_page(
  p_id=>15
-,p_user_interface_id=>wwv_flow_api.id(148753632100243889)
+,p_user_interface_id=>wwv_flow_imp.id(148753632100243889)
 ,p_name=>'leaflet map'
-,p_page_mode=>'NORMAL'
 ,p_step_title=>'leaflet map'
-,p_step_sub_title_type=>'TEXT_WITH_SUBSTITUTIONS'
-,p_first_item=>'NO_FIRST_ITEM'
 ,p_footer_text=>wwv_flow_string.join(wwv_flow_t_varchar2(
 '<script type="text/javascript" src="/i/libraries/jquery/2.2.3/jquery-2.2.3.min.js?v=5.1.1.00.08"></script>',
 '',
@@ -77,66 +82,65 @@ wwv_flow_api.create_page(
 '',
 '	div.infoDiv>p>i.fa { vertical-align: middle !important;}'))
 ,p_page_template_options=>'#DEFAULT#'
-,p_overwrite_navigation_list=>'N'
-,p_page_is_public_y_n=>'N'
-,p_cache_mode=>'NOCACHE'
+,p_page_component_map=>'17'
 ,p_last_updated_by=>'JAWAD'
 ,p_last_upd_yyyymmddhh24miss=>'20190814162913'
 );
-wwv_flow_api.create_page_plug(
- p_id=>wwv_flow_api.id(478101196281773601)
+wwv_flow_imp_page.create_page_plug(
+ p_id=>wwv_flow_imp.id(478101196281773601)
 ,p_plug_name=>'New'
 ,p_region_name=>'lmap'
 ,p_region_template_options=>'#DEFAULT#'
-,p_plug_template=>wwv_flow_api.id(148710019351243458)
+,p_plug_template=>wwv_flow_imp.id(148710019351243458)
 ,p_plug_display_sequence=>10
 ,p_include_in_reg_disp_sel_yn=>'Y'
-,p_plug_display_point=>'BODY'
 ,p_plug_source=>'<div id="lmap" style="height: 600px; width: 100%"> Loading ...</div>'
 ,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
 ,p_attribute_01=>'N'
 ,p_attribute_02=>'HTML'
 );
-wwv_flow_api.create_page_item(
- p_id=>wwv_flow_api.id(478101238186773602)
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(478101238186773602)
 ,p_name=>'P15_SIT_ID'
 ,p_item_sequence=>10
-,p_item_plug_id=>wwv_flow_api.id(478101196281773601)
+,p_item_plug_id=>wwv_flow_imp.id(478101196281773601)
 ,p_prompt=>'Sit id'
 ,p_display_as=>'NATIVE_TEXT_FIELD'
 ,p_cSize=>30
-,p_field_template=>wwv_flow_api.id(148742305227243640)
+,p_field_template=>wwv_flow_imp.id(148742305227243640)
 ,p_item_template_options=>'#DEFAULT#'
+,p_encrypt_session_state_yn=>'N'
 ,p_attribute_01=>'N'
 ,p_attribute_02=>'N'
 ,p_attribute_04=>'TEXT'
 ,p_attribute_05=>'BOTH'
 );
-wwv_flow_api.create_page_item(
- p_id=>wwv_flow_api.id(478101353441773603)
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(478101353441773603)
 ,p_name=>'P15__NEW'
 ,p_item_sequence=>20
-,p_item_plug_id=>wwv_flow_api.id(478101196281773601)
+,p_item_plug_id=>wwv_flow_imp.id(478101196281773601)
 ,p_prompt=>'New'
 ,p_display_as=>'NATIVE_TEXT_FIELD'
 ,p_cSize=>30
-,p_field_template=>wwv_flow_api.id(148742305227243640)
+,p_field_template=>wwv_flow_imp.id(148742305227243640)
 ,p_item_template_options=>'#DEFAULT#'
+,p_encrypt_session_state_yn=>'N'
 ,p_attribute_01=>'N'
 ,p_attribute_02=>'N'
 ,p_attribute_04=>'TEXT'
 ,p_attribute_05=>'BOTH'
 );
-wwv_flow_api.create_page_da_event(
- p_id=>wwv_flow_api.id(478119214720297301)
+wwv_flow_imp_page.create_page_da_event(
+ p_id=>wwv_flow_imp.id(478119214720297301)
 ,p_name=>'New'
 ,p_event_sequence=>10
 ,p_bind_type=>'bind'
 ,p_bind_event_type=>'ready'
 );
-wwv_flow_api.create_page_da_action(
- p_id=>wwv_flow_api.id(478119389179297302)
-,p_event_id=>wwv_flow_api.id(478119214720297301)
+wwv_flow_imp_page.create_page_da_action(
+ p_id=>wwv_flow_imp.id(478119389179297302)
+,p_event_id=>wwv_flow_imp.id(478119214720297301)
 ,p_event_result=>'TRUE'
 ,p_action_sequence=>10
 ,p_execute_on_page_init=>'N'
@@ -162,7 +166,7 @@ wwv_flow_api.create_page_da_action(
 '',
 '''<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, '' +',
 '',
-'''Imagery © <a href="http://mapbox.com">Mapbox</a>'',',
+unistr('''Imagery \00A9 <a href="http://mapbox.com">Mapbox</a>'','),
 '',
 '	                    id: ''mapbox.satellite''',
 '',
@@ -233,8 +237,8 @@ wwv_flow_api.create_page_da_action(
 '',
 '	    });'))
 );
-wwv_flow_api.create_page_process(
- p_id=>wwv_flow_api.id(478101436013773604)
+wwv_flow_imp_page.create_page_process(
+ p_id=>wwv_flow_imp.id(478101436013773604)
 ,p_process_sequence=>10
 ,p_process_point=>'BEFORE_HEADER'
 ,p_process_type=>'NATIVE_PLSQL'
@@ -277,12 +281,14 @@ wwv_flow_api.create_page_process(
 'apex_json.free_output;',
 '',
 'End;'))
+,p_process_clob_language=>'PLSQL'
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
 );
 end;
 /
+prompt --application/end_environment
 begin
-wwv_flow_api.import_end(p_auto_install_sup_obj => nvl(wwv_flow_application_install.get_auto_install_sup_obj, false));
+wwv_flow_imp.import_end(p_auto_install_sup_obj => nvl(wwv_flow_application_install.get_auto_install_sup_obj, false));
 commit;
 end;
 /
