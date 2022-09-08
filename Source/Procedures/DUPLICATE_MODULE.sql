@@ -2,7 +2,8 @@
 --  DDL for Procedure DUPLICATE_MODULE
 --------------------------------------------------------
 
---Comment by Tareif
+--Comment by Tareif v3------
+------------
 set define off;
 
   CREATE OR REPLACE EDITIONABLE PROCEDURE "PRJ"."DUPLICATE_MODULE" (p_from_module varchar2, p_to_module varchar2)

@@ -64,6 +64,7 @@ is
     err_code number;
     err_msg varchar2(400);
     begin
+    --CSS record should be created as 'CR' Category
       insert into css_api_logs (
             c1
         ) values (
